@@ -31,31 +31,7 @@ Route::group([
 });
 
 Route::get('/',function(){
-    $response = Http::withoutVerifying()->withHeaders([
-        'Content-Type' => 'application/x-www-form-urlencoded',
-    ])->withOptions([
-        'verify' => false
-    ])->post("https://crm.aerem.co/modules/Webforms/capture.php", [
-        '__vtrftk'          => 'sid:5fd6c32e68d77ecd612ee689833d51c72e9c19ce,1661181177',
-        'publicid'          => '883bcfb8fb3729fed71784919bb7c685',
-        'urlencodeenable'   => '1',
-        'name'              => 'Lead Creation Api',
-        'lastname'          =>  'entity_name two three',
-        'cf_862'            => 'Address Line 1',
-        'cf_864'            => 'Address Line 2',
-        'cf_866'            => 'Pincode',
-        'cf_868'            => 'District',
-        'state'             => 'state',
-        'cf_870'            => 'Mobile number',
-        'cf_872'            =>  'entity_email',
-        'cf_874'            => 'Project Size',
-        'cf_876'            => 'Installation Address Line One',
-        'cf_878'            => 'Installation Address Line Two',
-        'cf_880'            => 'Installation Pincode',
-        'cf_882'            => 'Installation District',
-        'cf_884'            => 'Installation State',
-    ]);
-    // return "hello";
+    return "working";
 });
 
 Route::post('sns/webhook',SnsReceiver::class);
