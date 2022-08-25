@@ -79,27 +79,32 @@ class WebhookHandler extends Controller
         // "proposed_project_size_kw": "`123",
         // "proposed_project_area_sqmtr": "321"
 
-        $client->publish([
-            'TopicArn' => 'arn:aws:sns:ap-south-1:838923037017:model_sync',
-            'Message' => $message,
-            'Subject' => $subject,
-            'MessageAttributes' => [
-                'Application' => [
-                    'DataType'    => 'String',
-                    'StringValue' => 'vtiger'
-                ],
-                'Module'       => [
-                    'DataType'    => 'String',
-                    'StringValue' => 'Leads'
-                ],
-                'Trigger'     => [
-                    'DataType'    => 'String',
-                    'StringValue' => 'Leads.updated'
+        try {
+            $client->publish([
+                'TopicArn' => config('services.sns.arn'),
+                'Message' => $message,
+                'Subject' => $subject,
+                'MessageAttributes' => [
+                    'Application' => [
+                        'DataType'    => 'String',
+                        'StringValue' => 'vtiger'
+                    ],
+                    'Module'       => [
+                        'DataType'    => 'String',
+                        'StringValue' => 'Leads'
+                    ],
+                    'Trigger'     => [
+                        'DataType'    => 'String',
+                        'StringValue' => 'Leads.updated'
+                    ]
+                    // 'Module'      => 'Leads',
+                    // 'Trigger'     => 'lead.updated',
+                    // 'Task'        => 'Leads Status Updated',
                 ]
-                // 'Module'      => 'Leads',
-                // 'Trigger'     => 'lead.updated',
-                // 'Task'        => 'Leads Status Updated',
-            ]
-        ]);
+            ]);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+        }
+
     }
 }
