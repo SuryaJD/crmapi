@@ -60,7 +60,8 @@ class LeadController extends Controller
                 'cf_882'            =>  $data['site_dist'], // 'Installation District',
                 'cf_884'            =>  $data['site_state'], // 'Installation State',
                 'cf_894'            =>  strval($data['installer_lead_id']),
-                'cf_906'            =>  $data['electric_bill']
+                'cf_908'            =>  $data['electric_bill'],
+                'cf_910'            =>  $data['proposal'],
             ]);
 
             Log::debug('Sent to vtiger', [
