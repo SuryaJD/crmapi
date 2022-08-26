@@ -54,6 +54,10 @@ class WebhookHandler extends Controller
             "status" => $request->cf_886,
             "remark" => $request->cf_888,
             "proposed_project_size_kw" => $request->cf_874,
+            "installer_id" => $request->cf_912,
+            "installer_name" => $request->cf_918,
+            "installer_email" => $request->cf_914,
+            "installer_contact" => $request->cf_916
             // "electric_bill" => $request->cf_908,
             // "proposal"      => $request->cf_910,
         ]);
