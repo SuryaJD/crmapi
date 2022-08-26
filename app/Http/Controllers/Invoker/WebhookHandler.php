@@ -52,7 +52,7 @@ class WebhookHandler extends Controller
             "site_country" => 'India',
             "installer_lead_id" => $request->cf_894,
             "status" => $request->cf_886,
-            "remark" => $request->cf_888,
+            "remarks" => $request->cf_888,
             "proposed_project_size_kw" => $request->cf_874,
             "installer_id" => $request->cf_912,
             "installer_name" => $request->cf_918,
