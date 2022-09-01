@@ -38,10 +38,10 @@ class LeadController extends Controller
             $data = json_decode($notification['Message'], true);
 
             $formData =  [
-                        '__vtrftk'          => 'sid:5fd6c32e68d77ecd612ee689833d51c72e9c19ce,1661181177',
-                        'publicid'          => '883bcfb8fb3729fed71784919bb7c685',
-                        'urlencodeenable'   => '1',
-                        'name'              => 'Lead Creation Api',
+                        // '__vtrftk'          => 'sid:5fd6c32e68d77ecd612ee689833d51c72e9c19ce,1661181177',
+                        // 'publicid'          => '883bcfb8fb3729fed71784919bb7c685',
+                        // 'urlencodeenable'   => '1',
+                        // 'name'              => 'Lead Creation Api',
                         'lastname'          =>  $data['entity_name'], // Name
                         'cf_862'            =>  $data['entity_address_l1'],  // 'Address Line 1',
                         'cf_864'            =>  $data['entity_address_l2'],  // 'Address Line 2',
@@ -88,11 +88,18 @@ class LeadController extends Controller
 
             Log::info("message", $data);
 
+            $postData = [
+                'operation'   => 'create',
+                'elementType' => 'leads',
+                'sessionName' => '5f23b3856310300bd1889',
+                'element'     => $formData
+            ];
+
             $response = Http::asForm()->withOptions([
                 'version' => 2,
-            ])->post("https://crm.aerem.co/modules/Webforms/capture.php", $formData);
+            ])->post("https://crm.aerem.co/webservice.php", $postData);
 
-            Log::debug('Sent to vtiger', $formData);
+            Log::debug('Sent to vtiger', $postData);
 
             Log::info($response->body());
         }
