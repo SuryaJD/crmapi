@@ -26,7 +26,7 @@ class SnsReceiver extends Controller
         if (isset($notification['MessageAttributes']) && $notification['MessageAttributes']['Application']['Value'] == 'aerem') {
             $data = json_decode($notification['Message'], true);
 
-            if(isset($data['isResubmit']) && $data['isResubmited']){
+            if(isset($data['isResubmit']) && $data['isResubmit']){
                 (new LeadController)->update($request);
 
             }else {
