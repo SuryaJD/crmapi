@@ -142,7 +142,8 @@ class LeadController extends Controller
                     'cf_894'            =>  strval($data['installer_lead_id']),
                     'cf_908'            =>  $data['electric_bill'],
                     'cf_910'            =>  $data['proposal'],
-                    'cf_886'            =>  $data['status']
+                    'cf_886'            =>  $data['status'],
+                    "assigned_user_id"  => "19x1"
                 ];
 
                 if (isset($data['installer']) && is_array($data['installer'])) {
