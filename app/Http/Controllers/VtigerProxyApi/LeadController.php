@@ -123,7 +123,7 @@ class LeadController extends Controller
 
             $leadId = optional(LeadCustomField::where(['cf_894' => $data['installer_lead_id']])->first())->leadId;
 
-            if (is_numeric($leadId)) {
+            // if (is_numeric($leadId)) {
                 $formData =  [
                     'lastname'          =>  $data['entity_name'], // Name
                     'cf_862'            =>  $data['entity_address_l1'],  // 'Address Line 1',
@@ -180,7 +180,7 @@ class LeadController extends Controller
                         'error' => $th->getMessage(),
                     ]);
                 }
-            }
+            // }
         }
     }
 
