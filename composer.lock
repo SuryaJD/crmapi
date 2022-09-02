@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6cdb13b50831067bb99c801c619890f9",
+    "content-hash": "5595f11ac424cc270ecc811dcef7d52a",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3147,6 +3147,73 @@
                 }
             ],
             "time": "2022-08-05T17:58:37+00:00"
+        },
+        {
+            "name": "salaros/vtwsclib-php",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/salaros/vtwsclib-php.git",
+                "reference": "31dd69115f3b5519df79db80892a0020345ac8f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/salaros/vtwsclib-php/zipball/31dd69115f3b5519df79db80892a0020345ac8f7",
+                "reference": "31dd69115f3b5519df79db80892a0020345ac8f7",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.5||~7.4",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "sphpdox/sphpdox": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Salaros\\Vtiger\\VTWSCLib\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Zhmayev Yaroslav",
+                    "email": "salaros@salaros.com",
+                    "homepage": "http://salaros.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Vtiger Web Services PHP Client Library",
+            "homepage": "https://github.com/salaros/vtwsclib-php",
+            "keywords": [
+                "api client",
+                "vtiger",
+                "vtwsclib",
+                "webservices"
+            ],
+            "support": {
+                "issues": "https://github.com/salaros/vtwsclib-php/issues",
+                "source": "https://github.com/salaros/vtwsclib-php/tree/1.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/salarosUSA",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://liberapay.com/salaros",
+                    "type": "liberapay"
+                },
+                {
+                    "url": "https://www.patreon.com/salaros",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2022-06-30T16:18:41+00:00"
         },
         {
             "name": "symfony/console",
