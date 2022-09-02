@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\VtigerProxyApi;
 
 use Illuminate\Http\Request;
+use App\Models\LeadCustomField;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Models\LeadCustomField;
 use Illuminate\Support\Facades\Http;
 use Salaros\Vtiger\VTWSCLib\WSClient;
+use Salaros\Vtiger\VTWSCLib\WSException;
 
 class LeadController extends Controller
 {
@@ -121,7 +122,12 @@ class LeadController extends Controller
 
             $data = json_decode($notification['Message'], true);
 
-            $leadId = optional(LeadCustomField::where(['cf_894' => $data['installer_lead_id']])->first())->leadId;
+            $leadId = optional(LeadCustomField::where(['cf_894' => $data['installer_lead_id']])->first())->leadid;
+
+            Log::debug('Lead Id',[
+                'lead Id' => $leadId,
+            ]);
+
 
             // if (is_numeric($leadId)) {
                 $formData =  [
@@ -173,10 +179,10 @@ class LeadController extends Controller
 
                 $vtigerLeadId = "10x".$leadId;
 
-                try {
+                try{
                     $added = $client->entities->updateOne('Leads', $vtigerLeadId, $formData);
                     Log::info('Lead updated', $added);
-                } catch (\Throwable $th) {
+                } catch (WSException $th) {
                     Log::error('vtiger webservice error', [
                         'error' => $th->getMessage(),
                     ]);
