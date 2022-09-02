@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Lead;
 use Illuminate\Http\Request;
+use App\Models\LeadCustomField;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -19,10 +22,37 @@ use App\Http\Controllers\VtigerProxyApi\LeadController as VtigerProxyApiLeadCont
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test',function ()
-{
-    return view('welcome');
-});
+// Route::get('/test',function ()
+// {
+//     // dd(LeadCustomField::select('*')->where(['cf_868' => '255'])->get());
+//     // return view('welcome');
+
+//     // dd(Lead::all());
+
+//     $dsn = "mysql:host=".config('database.connections.mysql.host').";dbname=".config('database.connections.mysql.database');
+
+//     $pdo = new PDO($dsn, config('database.connections.mysql.username'), config('database.connections.mysql.password'));
+
+//     // $stm = $pdo->query("SELECT * from vtiger_leadscf");
+
+//     // dump($stm->fetchAll(PDO::FETCH_ASSOC));
+
+
+//     // $q = $pdo->prepare("DESCRIBE vtiger_leaddetails");
+//     $q = $pdo->prepare("DESCRIBE vtiger_leadscf");
+//     $q->execute();
+//     $custom_fields = $q->fetchAll(PDO::FETCH_OBJ);
+
+//     dump($custom_fields);
+
+//     // while ($row = $stm->fetchObject()) {
+//     //     dump($row);
+//     // }
+
+
+
+
+// });
 
 Route::group([
     'prefix' => 'api/v1/',

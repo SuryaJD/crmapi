@@ -66,10 +66,10 @@ class LeadController extends Controller
             ];
 
             if (isset($data['installer']) && is_array($data['installer'])) {
-                $formData['cf_912']            =  $data['installer']['id'];
-                $formData['cf_918']            =  $data['installer']['name'];
-                $formData['cf_914']            =  $data['installer']['email'];
-                $formData['cf_916']            =  $data['installer']['contact'];
+                $formData['cf_912']            =  $data['installer']['id'] ?? null;
+                $formData['cf_918']            =  $data['installer']['name'] ?? null;
+                $formData['cf_914']            =  $data['installer']['email'] ?? null;
+                $formData['cf_916']            =  $data['installer']['contact'] ?? null;
             }
 
             if (isset($data['channel_manager']) && is_array($data['channel_manager'])) {
@@ -91,13 +91,11 @@ class LeadController extends Controller
             $postData = [
                 'operation'   => 'create',
                 'elementType' => 'leads',
-                'sessionName' => '5f23b3856310300bd1889',
-                'element'     => $formData
+                'sessionName' => '6de66646311993f6ddff',
+                'element'     => json_encode($formData)
             ];
 
-            $response = Http::asForm()->withOptions([
-                'version' => 2,
-            ])->post("https://crm.aerem.co/webservice.php", $postData);
+            $response = Http::asForm()->post("http://localhost/vtiger/webservice.php", $postData);
 
             Log::debug('Sent to vtiger', $postData);
 
