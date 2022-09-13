@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Invoker;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\VtigerProxyApi\LeadController;
 use App\Http\Controllers\VtigerProxyApi\LoanApplicationController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\VtigerProxyApi\TranchController;
 
 class SnsReceiver extends Controller
 {
@@ -23,6 +25,7 @@ class SnsReceiver extends Controller
 
     public function getIntention($request)
     {
+
         $notification = json_decode($request->getContent(), true);
         if (isset($notification['MessageAttributes']) && $notification['MessageAttributes']['Application']['Value'] == 'aerem') {
             $data = json_decode($notification['Message'], true);
@@ -35,6 +38,8 @@ class SnsReceiver extends Controller
                 } else {
                     (new LeadController)->store($request);
                 }
+            }elseif (isset($notification['MessageAttributes']['Module']['Value']) && $notification['MessageAttributes']['Module']['Value'] == 'Tranch') {
+                    (new TranchController)->update($request);
             }
         } else {
             abort(403);
