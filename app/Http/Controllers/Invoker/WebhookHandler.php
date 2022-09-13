@@ -58,8 +58,20 @@ class WebhookHandler extends Controller
             $Module = 'Leads';
             $trigger = 'Leads.updated';
 
-        }elseif ($request->has('module') && $request->get('module') == 'loan_application') {
+        }elseif ($request->has('module')
+            && $request->get('module') == 'loan_application'
+            && $request->has('event')
+            && $request->get('event') == 'loanapplication.approved'
+        ){
             $message = (new LoanApplicationController)->show($request);
+            $Module = 'Milestones';
+            $trigger = 'Milestones.updated';
+        }elseif ($request->has('module')
+            && $request->get('module') == 'loan_application'
+            && $request->has('event')
+            && $request->get('event') == 'loanapplication.camApproved'
+            ) {
+            $message = (new LoanApplicationController)->camApproved($request);
             $Module = 'Milestones';
             $trigger = 'Milestones.updated';
         }
