@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Invoker;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\VtigerProxyApi\LeadController;
+use App\Http\Controllers\VtigerProxyApi\LoanApplicationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -26,14 +27,17 @@ class SnsReceiver extends Controller
         if (isset($notification['MessageAttributes']) && $notification['MessageAttributes']['Application']['Value'] == 'aerem') {
             $data = json_decode($notification['Message'], true);
 
-            if(isset($data['isResubmit']) && $data['isResubmit']){
-                (new LeadController)->update($request);
-
-            }else {
-                (new LeadController)->store($request);
+            if (isset($notification['MessageAttributes']['Module']['Value']) && $notification['MessageAttributes']['Module']['Value'] == 'LoanApplication') {
+                (new LoanApplicationController)->create($request);
+            } elseif (isset($notification['MessageAttributes']['Module']['Value']) && $notification['MessageAttributes']['Module']['Value'] == 'Leads') {
+                if (isset($data['isResubmit']) && $data['isResubmit']) {
+                    (new LeadController)->update($request);
+                } else {
+                    (new LeadController)->store($request);
+                }
             }
-        }else{
-                abort(403);
+        } else {
+            abort(403);
         }
     }
 }
