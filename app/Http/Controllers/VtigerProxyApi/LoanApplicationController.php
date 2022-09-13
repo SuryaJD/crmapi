@@ -89,8 +89,10 @@ class LoanApplicationController extends Controller
 
         $byTranch = collect($milestones)->groupBy('milestone_tks_tranch')->toArray();
 
-        $tranches = [
-            [
+        $tranches = [];
+
+        if (isset($byTranch['Tranch One'])) {
+            array_push($tranches,[
                 'milestones' =>
                 collect($byTranch['Tranch One'])->map(function ($milestone) {
                     return [
@@ -98,8 +100,11 @@ class LoanApplicationController extends Controller
                     ];
                 }),
 
-            ],
-            [
+            ]);
+        }
+
+        if (isset($byTranch['Tranch Two'])) {
+            array_push($tranches,[
                 'milestones' =>
                 collect($byTranch['Tranch Two'])->map(function ($milestone) {
                     return [
@@ -107,8 +112,11 @@ class LoanApplicationController extends Controller
                     ];
                 }),
 
-            ],
-            [
+            ]);
+        }
+
+        if (isset($byTranch['Tranch Three'])) {
+            array_push($tranches,[
                 'milestones' =>
                 collect($byTranch['Tranch Three'])->map(function ($milestone) {
                     return [
@@ -116,9 +124,10 @@ class LoanApplicationController extends Controller
                     ];
                 }),
 
-            ]
-        ];
+            ]);
+        }
 
+        Log::debug('data',$tranches);
 
         $reponse = [
             "loan_application_id" => $request->get('loanapplication_tks_loanapplic'),
