@@ -39,7 +39,7 @@ class WebhookHandler extends Controller
                 "entity_phone" => $request->cf_896,
                 "entity_address_l1" => $request->cf_862,
                 "entity_address_l2" => $request->cf_864,
-                "entity_pin" => $request->cf_900 ,
+                "entity_pin" => $request->cf_900,
                 "entity_dist" => $request->cf_868,
                 "entity_state" => $request->state,
                 "entity_country" => 'India',
@@ -57,31 +57,41 @@ class WebhookHandler extends Controller
 
             $Module = 'Leads';
             $trigger = 'Leads.updated';
-
-        }elseif ($request->has('module')
+        } elseif (
+            $request->has('module')
             && $request->get('module') == 'loan_application'
             && $request->has('event')
             && $request->get('event') == 'loanapplication.approved'
-        ){
+        ) {
             $message = (new LoanApplicationController)->show($request);
             $Module = 'Milestones';
             $trigger = 'Milestones.updated';
-        }elseif ($request->has('module')
+        } elseif (
+            $request->has('module')
             && $request->get('module') == 'loan_application'
             && $request->has('event')
             && $request->get('event') == 'loanapplication.camApproved'
-            ) {
+        ) {
             $message = (new LoanApplicationController)->camApproved($request);
-            $Module = 'Milestones';
-            $trigger = 'Milestones.updated';
+            $Module = 'Underwriting';
+            $trigger = 'loanapplication.camStatusUpdated';
+        }elseif (
+            $request->has('module')
+            && $request->get('module') == 'loan_application'
+            && $request->has('event')
+            && $request->get('event') == 'loanapplication.sactionApproved'
+        ) {
+            $message = json_encode([
+                "loan_application_id" => $request->get('loanapplication_tks_loanapplic'),
+                "status" => "APPROVED",
+            ]);
+            $Module = 'Sanction';
+            $trigger = 'loanapplication.sactionApproved';
         }
 
         $subject = 'You got a new SNS Message';
 
 
-        Log::error('loan_application',[
-            $message
-        ]);
 
         try {
             $client->publish([
@@ -103,9 +113,13 @@ class WebhookHandler extends Controller
                     ],
                 ]
             ]);
+
+
+            Log::error('loan_application', [
+                $message
+            ]);
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
         }
-
     }
 }

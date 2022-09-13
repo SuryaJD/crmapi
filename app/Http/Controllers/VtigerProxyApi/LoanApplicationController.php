@@ -129,6 +129,16 @@ class LoanApplicationController extends Controller
         return json_encode($reponse);
     }
 
+    public function camApproved(Request $request)
+    {
+        $reponse = [
+            "loan_application_id" => $request->get('loanapplication_tks_loanapplic'),
+            "status" => "APPROVED",
+        ];
+
+        return json_encode($reponse);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
