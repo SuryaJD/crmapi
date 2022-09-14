@@ -102,6 +102,8 @@ class TranchController extends Controller
 
         foreach ($milestones as $milestone) {
 
+            $changes = [];
+
             Log::debug('miles',$milestone);
             $hasToUpdated = collect($Relatedmilestones)->where('milestone_tks_defination',$milestone['description'])->first();
 
@@ -122,10 +124,11 @@ class TranchController extends Controller
                     $changes['milestone_tks_documentsix'] = $milestone['links'][5];
                 }
                 Log::info('Inside');
-                $client->entities->updateOne('Leads', $hasToUpdated['id'], $changes);
             }else{
                 Log::info('Outside');
             }
+
+            $client->entities->updateOne('Milestone', $hasToUpdated['id'], $changes);
 
             // Log::info('description',$milestone['links']);
             // Log::info('data',$milestoneFetched);
