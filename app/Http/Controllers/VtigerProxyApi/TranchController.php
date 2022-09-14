@@ -78,10 +78,17 @@ class TranchController extends Controller
 
         $milestones = $data['milestone_links'];
 
+        $tranchId = $data['tranch']['id'];
+
+
         $loanApplicationId = $data['tranch']['loan_application_id'];
 
         $loanApplication = $client->entities->findOne('Loanapplication', [
             'loanapplication_tks_loanapplic'  => $loanApplicationId //$request->get('loanapplication_tks_loanapplic'),
+        ]);
+
+        $client->entities->updateOne('Leads', $loanApplication['id'],[
+            'cf_1005' => $tranchId
         ]);
 
         $Relatedmilestones = $client->invokeOperation('retrieve_related', [
