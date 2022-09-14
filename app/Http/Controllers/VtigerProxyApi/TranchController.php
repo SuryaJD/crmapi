@@ -113,15 +113,24 @@ class TranchController extends Controller
             if ($hasToUpdated != null && is_array($milestone['links']) && !empty($milestone['links'])) {
                 if (isset($milestone['links'][0])) {
                     $changes['milestone_tks_documentone'] = $milestone['links'][0];
-                }elseif (isset($milestone['links'][1])) {
+                }
+                if (isset($milestone['links'][1])) {
                     $changes['milestone_tks_documenttwo'] = $milestone['links'][1];
-                }elseif (isset($milestone['links'][2])) {
+                }
+
+                if (isset($milestone['links'][2])) {
                     $changes['milestone_tks_documentthree'] = $milestone['links'][2];
-                }elseif (isset($milestone['links'][3])) {
+                }
+
+                if (isset($milestone['links'][3])) {
                     $changes['milestone_tks_documentfour'] = $milestone['links'][3];
-                }elseif (isset($milestone['links'][4])) {
+                }
+
+                if (isset($milestone['links'][4])) {
                     $changes['milestone_tks_documentfive'] = $milestone['links'][4];
-                }elseif (isset($milestone['links'][5])) {
+                }
+
+                if (isset($milestone['links'][5])) {
                     $changes['milestone_tks_documentsix'] = $milestone['links'][5];
                 }
 
