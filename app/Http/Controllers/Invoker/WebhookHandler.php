@@ -87,6 +87,20 @@ class WebhookHandler extends Controller
             ]);
             $Module = 'Sanction';
             $trigger = 'loanapplication.sactionApproved';
+        }elseif (
+            $request->has('module')
+            && $request->get('module') == 'loan_application'
+            && $request->has('event')
+            && $request->get('event') == 'loanapplication.tranchOneApproved'
+        ) {
+            $message = json_encode([
+                "loan_application_id" => $request->get('loanapplication_tks_loanapplic'),
+                'tranch_id'           => $request->get('cf_1005'),
+                "status"              => "APPROVED",
+                'remarks'             => $request->get('cf_1009'),
+            ]);
+            $Module = 'Tranch';
+            $trigger = 'loanapplication.TranchOneApproved';
         }
 
         $subject = 'You got a new SNS Message';
