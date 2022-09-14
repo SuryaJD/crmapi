@@ -125,6 +125,11 @@ class TranchController extends Controller
                     $changes['milestone_tks_documentsix'] = $milestone['links'][5];
                 }
 
+                Log::debug('changes',[
+                    'milestones' => $milestone['links'],
+                    'changes'    => $changes
+                ]);
+
                 $client->entities->updateOne('Milestone', $hasToUpdated['id'], $changes);
                 Log::info('Inside');
             }else{
