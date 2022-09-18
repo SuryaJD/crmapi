@@ -85,11 +85,18 @@ class LoanApplicationController extends Controller
             'relatedLabel'  => 'Milestone'
         ], 'GET');
 
+        Log::debug("check",[
+            'id' => $request->get('loanapplication_tks_loanapplic'),
+            'loanApplication' => $loanApplication,
+            'milestones' => $milestones,
+        ]);
 
+
+
+        $tranches = [];
 
         $byTranch = collect($milestones)->groupBy('milestone_tks_tranch')->toArray();
 
-        $tranches = [];
 
         if (isset($byTranch['Tranch One'])) {
             array_push($tranches,[
@@ -127,7 +134,10 @@ class LoanApplicationController extends Controller
             ]);
         }
 
-        Log::debug('data',$tranches);
+        Log::error('tranches',$tranches);
+        Log::error('byTranch',$byTranch);
+
+
 
         $reponse = [
             "loan_application_id" => $request->get('loanapplication_tks_loanapplic'),
@@ -135,15 +145,18 @@ class LoanApplicationController extends Controller
             'tranches' => $tranches
         ];
 
+
+
         return json_encode($reponse);
     }
 
-    public function camApproved(Request $request)
+    public function camStatusChanged(Request $request)
     {
         $reponse = [
             "loan_application_id" => $request->get('loanapplication_tks_loanapplic'),
-            "status" => "APPROVED",
+            "status" => $request->get('cf_995'),
         ];
+
 
         return json_encode($reponse);
     }

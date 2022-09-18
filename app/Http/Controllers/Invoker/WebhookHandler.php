@@ -70,23 +70,26 @@ class WebhookHandler extends Controller
             $request->has('module')
             && $request->get('module') == 'loan_application'
             && $request->has('event')
-            && $request->get('event') == 'loanapplication.camApproved'
+            && $request->get('event') == 'loanapplication.camStatusChanged'
         ) {
-            $message = (new LoanApplicationController)->camApproved($request);
+            $message = (new LoanApplicationController)->camStatusChanged($request);
             $Module = 'Underwriting';
             $trigger = 'loanapplication.camStatusUpdated';
         }elseif (
             $request->has('module')
             && $request->get('module') == 'loan_application'
             && $request->has('event')
-            && $request->get('event') == 'loanapplication.sactionApproved'
+            && $request->get('event') == 'loanapplication.sactionStatusChangeByCam'
         ) {
             $message = json_encode([
                 "loan_application_id" => $request->get('loanapplication_tks_loanapplic'),
-                "status" => "APPROVED",
+                "status" => $request->get('cf_999'),
             ]);
+
+            Log::debug('log',json_decode($message,true));
+
             $Module = 'Sanction';
-            $trigger = 'loanapplication.sactionApproved';
+            $trigger = 'loanapplication.sactionStatusChangeByCam';
         }elseif (
             $request->has('module')
             && $request->get('module') == 'loan_application'
@@ -104,7 +107,6 @@ class WebhookHandler extends Controller
         }
 
         $subject = 'You got a new SNS Message';
-
 
 
         try {
