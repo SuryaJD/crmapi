@@ -94,17 +94,46 @@ class WebhookHandler extends Controller
             $request->has('module')
             && $request->get('module') == 'loan_application'
             && $request->has('event')
-            && $request->get('event') == 'loanapplication.tranchOneApproved'
+            && $request->get('event') == 'loanapplication.TranchOneStatusChanged'
         ) {
             $message = json_encode([
                 "loan_application_id" => $request->get('loanapplication_tks_loanapplic'),
                 'tranch_id'           => $request->get('cf_1005'),
-                "status"              => "APPROVED",
+                "status"              => $request->get('cf_1007'),
                 'remarks'             => $request->get('cf_1009'),
             ]);
             $Module = 'Tranch';
-            $trigger = 'loanapplication.TranchOneApproved';
+            $trigger = 'loanapplication.TranchOneStatusChanged';
+        }elseif (
+            $request->has('module')
+            && $request->get('module') == 'loan_application'
+            && $request->has('event')
+            && $request->get('event') == 'loanapplication.TranchTwoStatusChanged'
+        ) {
+            $message = json_encode([
+                "loan_application_id" => $request->get('loanapplication_tks_loanapplic'),
+                'tranch_id'           => $request->get('cf_1011'),
+                "status"              => $request->get('cf_1013'),
+                'remarks'             => $request->get('cf_1015'),
+            ]);
+            $Module = 'Tranch';
+            $trigger = 'loanapplication.TranchTwoStatusChanged';
+        }elseif (
+            $request->has('module')
+            && $request->get('module') == 'loan_application'
+            && $request->has('event')
+            && $request->get('event') == 'loanapplication.TranchThreeStatusChanged'
+        ) {
+            $message = json_encode([
+                "loan_application_id" => $request->get('loanapplication_tks_loanapplic'),
+                'tranch_id'           => $request->get('cf_1017'),
+                "status"              => $request->get('cf_1019'),
+                'remarks'             => $request->get('cf_1021'),
+            ]);
+            $Module = 'Tranch';
+            $trigger = 'loanapplication.TranchThreeStatusChanged';
         }
+
 
         $subject = 'You got a new SNS Message';
 

@@ -87,18 +87,27 @@ class TranchController extends Controller
             'loanapplication_tks_loanapplic'  => $loanApplicationId //$request->get('loanapplication_tks_loanapplic'),
         ]);
 
-        $client->entities->updateOne('Leads', $loanApplication['id'],[
-            'cf_1005' => $tranchId
-        ]);
-
         $Relatedmilestones = $client->invokeOperation('retrieve_related', [
             'id'    => $loanApplication['id'],
             'relatedType'  => 'Milestone',
             'relatedLabel'  => 'Milestone'
         ], 'GET');
 
-        Log::error('Relatedmilestones',$Relatedmilestones);
+        $fetechedMileStone = collect($Relatedmilestones)->where('milestone_tks_defination',$milestones[0]['description'])->first();
 
+        if ($fetechedMileStone['milestone_tks_tranch'] == 'Tranch One') {
+            $tranchField = 'cf_1005';
+        }elseif ($fetechedMileStone['milestone_tks_tranch'] == 'Tranch Two') {
+            $tranchField = 'cf_1011';
+        }elseif ($fetechedMileStone['milestone_tks_tranch'] == 'Tranch Three') {
+            $tranchField = 'cf_1017';
+        }
+
+        $client->entities->updateOne('Leads', $loanApplication['id'],[
+            $tranchField => $tranchId
+        ]);
+
+        Log::error('Relatedmilestones',$Relatedmilestones);
 
         foreach ($milestones as $milestone) {
 
