@@ -34,25 +34,96 @@ class LoanApplicationController extends Controller
 
             $data = json_decode($notification['Message'], true);
 
+            {
+                "success": true,
+                "documents": [
+                    "http://localhost:3333/api/loan/view-document/1662462487947/Legality-1",
+                    {
+                            "loan_documents": [{
+                                "GST_CERTIFICATE": "http://localhost:3333/api/loan/view-document/1662462487947/GST_CERTIFICATE"
+                            },
+                            {
+                                "UDHYAM": "http://localhost:3333/api/loan/view-document/1662462487947/UDHYAM"
+                            },
+                            {
+                                "ELECTRICITY_BILL_REGISTERED_ADDRESS": "http://localhost:3333/api/loan/view-document/1662462487947/ELECTRICITY_BILL_REGISTERED_ADDRESS"
+                            },
+                            {
+                                "ELECTRICITY_BILL_INSTALLATION_SITE": "http://localhost:3333/api/loan/view-document/1662462487947/ELECTRICITY_BILL_INSTALLATION_SITE"
+                            },
+                            {
+                                "OWNERSHIP_PROOF": "http://localhost:3333/api/loan/view-document/1662462487947/OWNERSHIP_PROOF"
+                            },
+                            {
+                                "PARTNERSHIP_FIRM_PAN": "http://localhost:3333/api/loan/view-document/1662462487947/PARTNERSHIP_FIRM_PAN"
+                            },
+                            {
+                                "PARTNERSHIP_FIRM_PARTNERSHIP_DEED": "http://localhost:3333/api/loan/view-document/1662462487947/PARTNERSHIP_FIRM_PARTNERSHIP_DEED"
+                            },
+                            {
+                                "PRIVATE_OR_PUBLIC_PAN": "http://localhost:3333/api/loan/view-document/1662462487947/PRIVATE_OR_PUBLIC_PAN"
+                            },
+                            {
+                                "PRIVATE_OR_PUBLIC_DIRECTORS_LIST": "http://localhost:3333/api/loan/view-document/1662462487947/PRIVATE_OR_PUBLIC_DIRECTORS_LIST"
+                            },
+                            {
+                                "PRIVATE_OR_PUBLIC_COI_OR_MOA_OR_AOA": "http://localhost:3333/api/loan/view-document/1662462487947/PRIVATE_OR_PUBLIC_COI_OR_MOA_OR_AOA"
+                            },
+                            {
+                                "INCOME_DOCUMENT_FINANCIAL_STATEMENT": "http://localhost:3333/api/loan/view-document/1662462487947/INCOME_DOCUMENT_FINANCIAL_STATEMENT"
+                            },
+                            {
+                                "INCOME_DOCUMENT_BANK_STATEMENT": "http://localhost:3333/api/loan/view-document/1662462487947/INCOME_DOCUMENT_BANK_STATEMENT"
+                            },
+                            {
+                                "INCOME_DOCUMENT_GST_RETURNS": "http://localhost:3333/api/loan/view-document/1662462487947/INCOME_DOCUMENT_GST_RETURNS"
+                            },
+                            {
+                                "INCOME_DOCUMENT_LOAN_OBLIGATION_SHEET": "http://localhost:3333/api/loan/view-document/1662462487947/INCOME_DOCUMENT_LOAN_OBLIGATION_SHEET"
+                            },
+                            {
+                                "INCOME_DOCUMENT_SANCTION_LETTER": "http://localhost:3333/api/loan/view-document/1662462487947/INCOME_DOCUMENT_SANCTION_LETTER"
+                            },
+                            {
+                                "INCOME_DOCUMENT_SIGNED_PROPOSAL": "http://localhost:3333/api/loan/view-document/1662462487947/INCOME_DOCUMENT_SIGNED_PROPOSAL"
+                            }
+                        ],
+                        "applicants_documents": [{
+                                "ID_PROOF": "http://localhost:3333/api/loan/applicant/view-document/1662462487947/40/ID_PROOF",
+                                "AADHAR_PROOF": "http://localhost:3333/api/loan/applicant/view-document/1662462487947/40/AADHAR_PROOF",
+                                "AGE_PROOF": "http://localhost:3333/api/loan/applicant/view-document/1662462487947/40/AGE_PROOF",
+                                "SIGN_PROOF": "http://localhost:3333/api/loan/applicant/view-document/1662462487947/40/SIGN_PROOF"
+                            },
+                            {
+                                "ID_PROOF": "http://localhost:3333/api/loan/applicant/view-document/1662462487947/41/ID_PROOF",
+                                "AADHAR_PROOF": "http://localhost:3333/api/loan/applicant/view-document/1662462487947/41/AADHAR_PROOF",
+                                "AGE_PROOF": "http://localhost:3333/api/loan/applicant/view-document/1662462487947/41/AGE_PROOF",
+                                "SIGN_PROOF": "http://localhost:3333/api/loan/applicant/view-document/1662462487947/41/SIGN_PROOF"
+                            }
+                        ]
+                    }
+                ]
+            }
+
             $formData =  [
                 'loanapplication_tks_loanapplic' => $data['id'], // Loan Application ID - Primary Key In Aerem
                 'cf_997'                         => $data['documents'][0], // Signed URLs
-                'cf_1023'                        => $data['documents'][1]['loan_documents']['GST_CERTIFICATE'],
-                'cf_1025'                        => $data['documents'][1]['loan_documents']['UDHYAM'],
-                'cf_1027'                        => $data['documents'][1]['loan_documents']['ELECTRICITY_BILL_REGISTERED_ADDRESS'],
-                'cf_1029'                        => $data['documents'][1]['loan_documents']['ELECTRICITY_BILL_INSTALLATION_SITE'],
-                'cf_1031'                        => $data['documents'][1]['loan_documents']['OWNERSHIP_PROOF'],
-                'cf_1033'                        => $data['documents'][1]['loan_documents']['PARTNERSHIP_FIRM_PAN'],
-                'cf_1035'                        => $data['documents'][1]['loan_documents']['PARTNERSHIP_FIRM_PARTNERSHIP_DEED'],
-                'cf_1037'                        => $data['documents'][1]['loan_documents']['PRIVATE_OR_PUBLIC_PAN'],
-                'cf_1039'                        => $data['documents'][1]['loan_documents']['PRIVATE_OR_PUBLIC_DIRECTORS_LIST'],
-                'cf_1041'                        => $data['documents'][1]['loan_documents']['PRIVATE_OR_PUBLIC_COI_OR_MOA_OR_AOA'],
-                'cf_1043'                        => $data['documents'][1]['loan_documents']['INCOME_DOCUMENT_FINANCIAL_STATEMENT'],
-                'cf_1045'                        => $data['documents'][1]['loan_documents']['INCOME_DOCUMENT_BANK_STATEMENT'],
-                'cf_1047'                        => $data['documents'][1]['loan_documents']['INCOME_DOCUMENT_GST_RETURNS'],
-                'cf_1049'                        => $data['documents'][1]['loan_documents']['INCOME_DOCUMENT_LOAN_OBLIGATION_SHEET'],
-                'cf_1051'                        => $data['documents'][1]['loan_documents']['INCOME_DOCUMENT_SANCTION_LETTER'],
-                'cf_1053'                        => $data['documents'][1]['loan_documents']['INCOME_DOCUMENT_SIGNED_PROPOSAL'],
+                'cf_1023'                        => $data['documents'][1]['loan_documents'][0]['GST_CERTIFICATE'],
+                'cf_1025'                        => $data['documents'][1]['loan_documents'][1]['UDHYAM'],
+                'cf_1027'                        => $data['documents'][1]['loan_documents'][2]['ELECTRICITY_BILL_REGISTERED_ADDRESS'],
+                'cf_1029'                        => $data['documents'][1]['loan_documents'][3]['ELECTRICITY_BILL_INSTALLATION_SITE'],
+                'cf_1031'                        => $data['documents'][1]['loan_documents'][4]['OWNERSHIP_PROOF'],
+                'cf_1033'                        => $data['documents'][1]['loan_documents'][5]['PARTNERSHIP_FIRM_PAN'],
+                'cf_1035'                        => $data['documents'][1]['loan_documents'][6]['PARTNERSHIP_FIRM_PARTNERSHIP_DEED'],
+                'cf_1037'                        => $data['documents'][1]['loan_documents'][7]['PRIVATE_OR_PUBLIC_PAN'],
+                'cf_1039'                        => $data['documents'][1]['loan_documents'][8]['PRIVATE_OR_PUBLIC_DIRECTORS_LIST'],
+                'cf_1041'                        => $data['documents'][1]['loan_documents'][9]['PRIVATE_OR_PUBLIC_COI_OR_MOA_OR_AOA'],
+                'cf_1043'                        => $data['documents'][1]['loan_documents'][10]['INCOME_DOCUMENT_FINANCIAL_STATEMENT'],
+                'cf_1045'                        => $data['documents'][1]['loan_documents'][11]['INCOME_DOCUMENT_BANK_STATEMENT'],
+                'cf_1047'                        => $data['documents'][1]['loan_documents'][12]['INCOME_DOCUMENT_GST_RETURNS'],
+                'cf_1049'                        => $data['documents'][1]['loan_documents'][13]['INCOME_DOCUMENT_LOAN_OBLIGATION_SHEET'],
+                'cf_1051'                        => $data['documents'][1]['loan_documents'][14]['INCOME_DOCUMENT_SANCTION_LETTER'],
+                'cf_1053'                        => $data['documents'][1]['loan_documents'][15]['INCOME_DOCUMENT_SIGNED_PROPOSAL'],
             ];
 
             Log::info("message", $data);
