@@ -74,17 +74,33 @@ class TranchController extends Controller
         $client = new WSClient('https://crm.aerem.co/', 'admin', 'Pt6Oh5A3YhofNY3');
 
         $notification = json_decode($request->getContent(), true);
+
         $data = json_decode($notification['Message'], true);
 
         $milestones = $data['milestone_links'];
 
+        Log::debug('Step One',[
+            $milestones
+        ]);
+
         $tranchId = $data['tranch']['id'];
 
+        Log::debug('Step Two',[
+            $tranchId
+        ]);
 
         $loanApplicationId = $data['tranch']['loan_application_id'];
 
+        Log::debug('Step Three',[
+            $loanApplicationId
+        ]);
+
         $loanApplication = $client->entities->findOne('Loanapplication', [
             'loanapplication_tks_loanapplic'  => $loanApplicationId //$request->get('loanapplication_tks_loanapplic'),
+        ]);
+
+        Log::debug('Step Four',[
+            $loanApplication
         ]);
 
         $Relatedmilestones = $client->invokeOperation('retrieve_related', [
@@ -93,7 +109,16 @@ class TranchController extends Controller
             'relatedLabel'  => 'Milestone'
         ], 'GET');
 
+        Log::debug('Step Five',[
+            $Relatedmilestones
+        ]);
+
         $fetechedMileStone = collect($Relatedmilestones)->where('milestone_tks_defination',$milestones[0]['description'])->first();
+
+        Log::debug('Step Six',[
+            $fetechedMileStone,
+            $milestones[0]['description']
+        ]);
 
         if ($fetechedMileStone['milestone_tks_tranch'] == 'Tranch One') {
             $tranchField = 'cf_1005';
@@ -103,7 +128,7 @@ class TranchController extends Controller
             $tranchField = 'cf_1017';
         }
 
-        $client->entities->updateOne('Leads', $loanApplication['id'],[
+        $client->entities->updateOne('Loanapplication', $loanApplication['id'],[
             $tranchField => $tranchId
         ]);
 
