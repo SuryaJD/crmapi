@@ -33,7 +33,6 @@ class LoanApplicationController extends Controller
             Log::info('notification', $notification);
 
             $data = json_decode($notification['Message'], true);
-            Log::info('test',json_decode($data['documents'][1]));
 
             $formData =  [
                 'loanapplication_tks_loanapplic' => $data['id'], // Loan Application ID - Primary Key In Aerem
