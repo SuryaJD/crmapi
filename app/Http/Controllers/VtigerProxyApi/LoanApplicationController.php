@@ -37,6 +37,22 @@ class LoanApplicationController extends Controller
             $formData =  [
                 'loanapplication_tks_loanapplic' => $data['id'], // Loan Application ID - Primary Key In Aerem
                 'cf_997'                         => $data['documents'][0], // Signed URLs
+                'cf_1023'                        => $data['documents'][1]['loan_documents']['GST_CERTIFICATE'],
+                'cf_1025'                        => $data['documents'][1]['loan_documents']['UDHYAM'],
+                'cf_1027'                        => $data['documents'][1]['loan_documents']['ELECTRICITY_BILL_REGISTERED_ADDRESS'],
+                'cf_1029'                        => $data['documents'][1]['loan_documents']['ELECTRICITY_BILL_INSTALLATION_SITE'],
+                'cf_1031'                        => $data['documents'][1]['loan_documents']['OWNERSHIP_PROOF'],
+                'cf_1033'                        => $data['documents'][1]['loan_documents']['PARTNERSHIP_FIRM_PAN'],
+                'cf_1035'                        => $data['documents'][1]['loan_documents']['PARTNERSHIP_FIRM_PARTNERSHIP_DEED'],
+                'cf_1037'                        => $data['documents'][1]['loan_documents']['PRIVATE_OR_PUBLIC_PAN'],
+                'cf_1039'                        => $data['documents'][1]['loan_documents']['PRIVATE_OR_PUBLIC_DIRECTORS_LIST'],
+                'cf_1041'                        => $data['documents'][1]['loan_documents']['PRIVATE_OR_PUBLIC_COI_OR_MOA_OR_AOA'],
+                'cf_1043'                        => $data['documents'][1]['loan_documents']['INCOME_DOCUMENT_FINANCIAL_STATEMENT'],
+                'cf_1045'                        => $data['documents'][1]['loan_documents']['INCOME_DOCUMENT_BANK_STATEMENT'],
+                'cf_1047'                        => $data['documents'][1]['loan_documents']['INCOME_DOCUMENT_GST_RETURNS'],
+                'cf_1049'                        => $data['documents'][1]['loan_documents']['INCOME_DOCUMENT_LOAN_OBLIGATION_SHEET'],
+                'cf_1051'                        => $data['documents'][1]['loan_documents']['INCOME_DOCUMENT_SANCTION_LETTER'],
+                'cf_1053'                        => $data['documents'][1]['loan_documents']['INCOME_DOCUMENT_SIGNED_PROPOSAL'],
             ];
 
             Log::info("message", $data);
