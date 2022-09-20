@@ -77,7 +77,7 @@ return [
 
     'middleware' => [
         'web',
-        Authorize::class,
+        // Authorize::class, Have to find way to auth in prod
     ],
 
     /*
