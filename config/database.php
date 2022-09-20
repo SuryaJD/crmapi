@@ -62,14 +62,14 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-        'telescope' => [
+        'vtiger' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('CRM_API_DB_HOST', '127.0.0.1'),
-            'port' => env('CRM_API_DB_PORT', '3306'),
-            'database' => env('CRM_API_DB_DATABASE', 'forge'),
-            'username' => env('CRM_API_DB_USERNAME', 'forge'),
-            'password' => env('CRM_API_DB_PASSWORD', ''),
+            'host' => env('vtiger_HOST', '127.0.0.1'),
+            'port' => env('vtiger_PORT', '3306'),
+            'database' => env('vtiger_DATABASE', 'forge'),
+            'username' => env('vtiger_USERNAME', 'forge'),
+            'password' => env('vtiger_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -81,7 +81,6 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),

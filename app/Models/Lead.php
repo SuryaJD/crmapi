@@ -9,6 +9,8 @@ class Lead extends Model
 {
     use HasFactory;
 
+    protected $connection = "vtiger";
+
     protected $table = 'vtiger_leaddetails';
 
     protected $hidden = [

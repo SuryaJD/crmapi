@@ -9,5 +9,7 @@ class LeadCustomField extends Model
 {
     use HasFactory;
 
+    protected $connection = "vtiger";
+
     protected $table = 'vtiger_leadscf';
 }
