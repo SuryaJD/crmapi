@@ -84,16 +84,16 @@ class LeadController extends Controller
 
             Log::info("message", $data);
 
-            $client = new WSClient('https://crm.aerem.co/', 'admin', 'Pt6Oh5A3YhofNY3');
+            $client = new WSClient(config('vtiger.vtiger_host.'.config('app.env')), 'admin', 'Pt6Oh5A3YhofNY3');
 
-            try {
+            // try {
                 $added = $client->entities->createOne('Leads', $formData);
                 Log::info('Lead Added', $added);
-            } catch (\Throwable $th) {
-                Log::error('vtiger webservice error', [
-                    'error' => $th->getMessage(),
-                ]);
-            }
+            // } catch (\Throwable $th) {
+            //     Log::error('vtiger webservice error', [
+            //         'error' => $th->getMessage(),
+            //     ]);
+            // }
         }
     }
     /**
@@ -127,7 +127,6 @@ class LeadController extends Controller
             Log::debug('Lead Id',[
                 'lead Id' => $leadId,
             ]);
-
 
             // if (is_numeric($leadId)) {
                 $formData =  [
@@ -175,18 +174,18 @@ class LeadController extends Controller
 
                 Log::info("message", $data);
 
-                $client = new WSClient('https://crm.aerem.co/', 'admin', 'Pt6Oh5A3YhofNY3');
+                $client = new WSClient(config('vtiger.vtiger_host.'.config('app.env')), 'admin', 'Pt6Oh5A3YhofNY3');
 
                 $vtigerLeadId = "10x".$leadId;
 
-                try{
+                // try{
                     $added = $client->entities->updateOne('Leads', $vtigerLeadId, $formData);
                     Log::info('Lead updated', $added);
-                } catch (WSException $th) {
-                    Log::error('vtiger webservice error', [
-                        'error' => $th->getMessage(),
-                    ]);
-                }
+                // } catch (WSException $th) {
+                //     Log::error('vtiger webservice error', [
+                //         'error' => $th->getMessage(),
+                //     ]);
+                // }
             // }
         }
     }

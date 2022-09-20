@@ -71,7 +71,7 @@ class TranchController extends Controller
      */
     public function update(Request $request)
     {
-        $client = new WSClient('https://crm.aerem.co/', 'admin', 'Pt6Oh5A3YhofNY3');
+        $client = new WSClient(config('vtiger.vtiger_host.'.config('app.env')), 'admin', 'Pt6Oh5A3YhofNY3');
 
         $notification = json_decode($request->getContent(), true);
 

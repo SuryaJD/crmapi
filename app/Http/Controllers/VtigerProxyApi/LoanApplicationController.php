@@ -57,7 +57,7 @@ class LoanApplicationController extends Controller
 
             Log::info("message", $data);
 
-            $client = new WSClient('https://crm.aerem.co/', 'admin', 'Pt6Oh5A3YhofNY3');
+            $client = new WSClient(config('vtiger.vtiger_host.'.config('app.env')), 'admin', 'Pt6Oh5A3YhofNY3');
 
             try {
                 $added = $client->entities->createOne('Loanapplication', $formData);
@@ -89,11 +89,13 @@ class LoanApplicationController extends Controller
      */
     public function show(Request $request)
     {
-        $client = new WSClient('https://crm.aerem.co/', 'admin', 'Pt6Oh5A3YhofNY3');
+        $client = new WSClient(config('vtiger.vtiger_host.'.config('app.env')), 'admin', 'Pt6Oh5A3YhofNY3');
 
         $loanApplication = $client->entities->findOne('Loanapplication', [
             'loanapplication_tks_loanapplic'  => $request->get('loanapplication_tks_loanapplic') //$request->get('loanapplication_tks_loanapplic'),
         ]);
+
+        Log::debug('loanApplication'.$loanApplication['id']);
 
         $milestones = $client->invokeOperation('retrieve_related', [
             'id'    => $loanApplication['id'],
