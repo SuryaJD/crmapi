@@ -55,9 +55,39 @@ class LoanApplicationController extends Controller
                 'cf_1053'                        => $data['documents'][2]['loan_documents'][15]['INCOME_DOCUMENT_SIGNED_PROPOSAL'],
             ];
 
+            if (
+                isset($data['documents'][2]['applicants_documents'][0])
+                && is_array($data['documents'][2]['applicants_documents'][0])
+            ) {
+                $formData['cf_1055']  =  $data['documents'][2]['applicants_documents'][0]['ID_PROOF'];
+                $formData['cf_1057']  =  $data['documents'][2]['applicants_documents'][0]['AADHAR_PROOF'];
+                $formData['cf_1059']  =  $data['documents'][2]['applicants_documents'][0]['AGE_PROOF'];
+                $formData['cf_1061']  =  $data['documents'][2]['applicants_documents'][0]['SIGN_PROOF'];
+            }
+
+            if (
+                isset($data['documents'][2]['applicants_documents'][1])
+                && is_array($data['documents'][2]['applicants_documents'][1])
+            ) {
+                $formData['cf_1063']  =  $data['documents'][2]['applicants_documents'][1]['ID_PROOF'];
+                $formData['cf_1065']  =  $data['documents'][2]['applicants_documents'][1]['AADHAR_PROOF'];
+                $formData['cf_1067']  =  $data['documents'][2]['applicants_documents'][1]['AGE_PROOF'];
+                $formData['cf_1069']  =  $data['documents'][2]['applicants_documents'][1]['SIGN_PROOF'];
+            }
+
+            if (
+                isset($data['documents'][2]['applicants_documents'][2])
+                && is_array($data['documents'][2]['applicants_documents'][2])
+            ) {
+                $formData['cf_1071']  =  $data['documents'][2]['applicants_documents'][2]['ID_PROOF'];
+                $formData['cf_1073']  =  $data['documents'][2]['applicants_documents'][2]['AADHAR_PROOF'];
+                $formData['cf_1075']  =  $data['documents'][2]['applicants_documents'][2]['AGE_PROOF'];
+                $formData['cf_1077']  =  $data['documents'][2]['applicants_documents'][2]['SIGN_PROOF'];
+            }
+
             Log::info("message", $data);
 
-            $client = new WSClient(config('vtiger.vtiger_host.'.config('app.env')), 'admin', 'Pt6Oh5A3YhofNY3');
+            $client = new WSClient(config('vtiger.vtiger_host.' . config('app.env')), 'admin', 'Pt6Oh5A3YhofNY3');
 
             try {
                 $added = $client->entities->createOne('Loanapplication', $formData);
@@ -89,13 +119,13 @@ class LoanApplicationController extends Controller
      */
     public function show(Request $request)
     {
-        $client = new WSClient(config('vtiger.vtiger_host.'.config('app.env')), 'admin', 'Pt6Oh5A3YhofNY3');
+        $client = new WSClient(config('vtiger.vtiger_host.' . config('app.env')), 'admin', 'Pt6Oh5A3YhofNY3');
 
         $loanApplication = $client->entities->findOne('Loanapplication', [
             'loanapplication_tks_loanapplic'  => $request->get('loanapplication_tks_loanapplic') //$request->get('loanapplication_tks_loanapplic'),
         ]);
 
-        Log::debug('loanApplication'.$loanApplication['id']);
+        Log::debug('loanApplication' . $loanApplication['id']);
 
         $milestones = $client->invokeOperation('retrieve_related', [
             'id'    => $loanApplication['id'],
@@ -103,7 +133,7 @@ class LoanApplicationController extends Controller
             'relatedLabel'  => 'Milestone'
         ], 'GET');
 
-        Log::debug("check",[
+        Log::debug("check", [
             'id' => $request->get('loanapplication_tks_loanapplic'),
             'loanApplication' => $loanApplication,
             'milestones' => $milestones,
@@ -117,7 +147,7 @@ class LoanApplicationController extends Controller
 
 
         if (isset($byTranch['Tranch One'])) {
-            array_push($tranches,[
+            array_push($tranches, [
                 'milestones' =>
                 collect($byTranch['Tranch One'])->map(function ($milestone) {
                     return [
@@ -129,7 +159,7 @@ class LoanApplicationController extends Controller
         }
 
         if (isset($byTranch['Tranch Two'])) {
-            array_push($tranches,[
+            array_push($tranches, [
                 'milestones' =>
                 collect($byTranch['Tranch Two'])->map(function ($milestone) {
                     return [
@@ -141,7 +171,7 @@ class LoanApplicationController extends Controller
         }
 
         if (isset($byTranch['Tranch Three'])) {
-            array_push($tranches,[
+            array_push($tranches, [
                 'milestones' =>
                 collect($byTranch['Tranch Three'])->map(function ($milestone) {
                     return [
@@ -152,8 +182,8 @@ class LoanApplicationController extends Controller
             ]);
         }
 
-        Log::error('tranches',$tranches);
-        Log::error('byTranch',$byTranch);
+        Log::error('tranches', $tranches);
+        Log::error('byTranch', $byTranch);
 
 
 
