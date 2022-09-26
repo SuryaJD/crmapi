@@ -55,6 +55,8 @@ class LoanApplicationController extends Controller
                 'cf_1053'                        => $data['documents'][2]['loan_documents'][15]['INCOME_DOCUMENT_SIGNED_PROPOSAL'],
             ];
 
+            // Applicants
+
             if (
                 isset($data['documents'][2]['applicants_documents'][0])
                 && is_array($data['documents'][2]['applicants_documents'][0])
@@ -84,6 +86,39 @@ class LoanApplicationController extends Controller
                 $formData['cf_1075']  =  $data['documents'][2]['applicants_documents'][2]['AGE_PROOF'];
                 $formData['cf_1077']  =  $data['documents'][2]['applicants_documents'][2]['SIGN_PROOF'];
             }
+
+            // Borrower
+
+            if (
+                isset($data['documents'][2]['coborrowers_documents'][0])
+                && is_array($data['documents'][2]['coborrowers_documents'][0])
+            ) {
+                $formData['cf_1079']  =  $data['documents'][2]['coborrowers_documents'][0]['ID_PROOF'];
+                $formData['cf_1081']  =  $data['documents'][2]['coborrowers_documents'][0]['AADHAR_PROOF'];
+                $formData['cf_1083']  =  $data['documents'][2]['coborrowers_documents'][0]['AGE_PROOF'];
+                $formData['cf_1085']  =  $data['documents'][2]['coborrowers_documents'][0]['SIGN_PROOF'];
+            }
+
+            if (
+                isset($data['documents'][2]['coborrowers_documents'][1])
+                && is_array($data['documents'][2]['coborrowers_documents'][1])
+            ) {
+                $formData['cf_1087']  =  $data['documents'][2]['coborrowers_documents'][1]['ID_PROOF'];
+                $formData['cf_1089']  =  $data['documents'][2]['coborrowers_documents'][1]['AADHAR_PROOF'];
+                $formData['cf_1091']  =  $data['documents'][2]['coborrowers_documents'][1]['AGE_PROOF'];
+                $formData['cf_1093']  =  $data['documents'][2]['coborrowers_documents'][1]['SIGN_PROOF'];
+            }
+
+            if (
+                isset($data['documents'][2]['coborrowers_documents'][2])
+                && is_array($data['documents'][2]['coborrowers_documents'][2])
+            ) {
+                $formData['cf_1095']  =  $data['documents'][2]['coborrowers_documents'][2]['ID_PROOF'];
+                $formData['cf_1097']  =  $data['documents'][2]['coborrowers_documents'][2]['AADHAR_PROOF'];
+                $formData['cf_1099']  =  $data['documents'][2]['coborrowers_documents'][2]['AGE_PROOF'];
+                $formData['cf_1101']  =  $data['documents'][2]['coborrowers_documents'][2]['SIGN_PROOF'];
+            }
+
 
             Log::info("message", $data);
 
